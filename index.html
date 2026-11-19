@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="ru" data-type="product">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maero — Мам, я сегодня сам!</title>
+<meta name="description" content="Maero готовит первую ограниченную коллекцию детской одежды с куклой и её собственным гардеробом. Примерьте наряды и следите за запуском в Telegram.">
+<link rel="canonical" href="https://intuitivcompany-crypto.github.io/Yana/">
+<meta name="theme-color" content="#F7F6F2">
+<meta name="page-type" content="product">
+<meta name="site-kind" content="other">
+<link rel="preload" href="./assets/golos-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:Golos;src:url('./assets/golos-cyrillic.woff2') format('woff2');font-weight:400 900;font-display:swap;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Golos;src:url('./assets/golos-latin.woff2') format('woff2');font-weight:400 900;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F}
+:root{
+  --porcelain:#f7f6f2;--ink:#20263c;--muted:#51576b;--plum:#563350;
+  --mist:#ede6ee;--white:#fff;--line:#d4c8d5;--paper:#f1edf2;
+  --edge:clamp(20px,4.45vw,64px);--gutter:clamp(16px,2vw,24px);
+  --section:clamp(64px,8.33vw,120px);--container:1280px;
+  --body:clamp(1rem,1.35vw,1.125rem);--small:.875rem;
+  --display:clamp(3.75rem,6vw,5.25rem);--heading:clamp(2.125rem,4.3vw,4rem);
+  --quick:200ms;--ease:cubic-bezier(.2,.75,.25,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;color:var(--ink);background:var(--porcelain)}
+body{margin:0;font:400 var(--body)/1.55 Golos,Arial,sans-serif}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+button{font:inherit;color:inherit}
+h1,h2,h3,p,figure{margin:0}
+h1,h2{font-weight:800;line-height:1.02;letter-spacing:-.04em;text-wrap:balance}
+h1{font-size:var(--display)}
+h2{font-size:var(--heading)}
+h3{line-height:1.2}
+:focus-visible{outline:3px solid var(--plum);outline-offset:4px}
+::selection{color:var(--ink);background:#ddccdf}
+.wrap{width:min(var(--container),calc(100% - 2 * var(--edge)));margin-inline:auto}
+.split{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter)}
+.skip{position:absolute;z-index:5;left:var(--edge);top:12px;padding:12px 18px;background:var(--white);transform:translateY(-180%)}
+.skip:focus{transform:none}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:82px;border-bottom:1px solid var(--line)}
+.brand{display:inline-flex;align-items:center;min-height:44px}
+.brand img{width:125px;mix-blend-mode:multiply}
+.nav{display:flex;flex-wrap:wrap;gap:4px 26px}
+.nav a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;font-size:var(--small)}
+.nav a:hover{text-decoration:underline;text-underline-offset:.3em}
+.hero{align-items:center;padding-block:32px 44px;min-height:min(790px,calc(100svh - 82px))}
+.hero-copy{grid-column:span 5}
+.lead{max-width:34ch;margin-top:24px;color:var(--muted)}
+.launch{display:grid;justify-items:start;gap:12px;margin-top:32px;padding:18px 20px;background:var(--mist);width:fit-content}
+.launch p{font-size:var(--small);font-weight:600}
+.cta{display:inline-flex;justify-content:center;align-items:center;gap:12px;min-height:48px;padding:10px 20px;background:var(--plum);border-radius:3px;color:var(--white);font-size:1rem;font-weight:650;text-align:center;text-decoration:none;transition:transform var(--quick) var(--ease),background-color var(--quick) var(--ease)}
+.cta svg{width:18px;height:18px;flex:none}
+.cta:active{transform:translateY(1px)}
+.wardrobe{grid-column:span 7;min-width:0}
+.stage{position:relative;overflow:hidden;isolation:isolate;background:#eee7ee;aspect-ratio:1.19;display:grid;place-items:center}
+.portrait{position:absolute;height:100%;aspect-ratio:4/5;max-width:100%;overflow:hidden}
+.outfit-window{position:absolute;inset:0;mask-image:radial-gradient(ellipse 21% 18% at 50% 53%,#000 83%,transparent 100%)}
+.stage img{width:100%;height:100%;object-fit:cover}
+.stage .stage-base{position:absolute;inset:0}
+.outfit-layer{position:absolute;inset:0;opacity:0;pointer-events:none}
+.outfit-layer.is-active{opacity:1}
+.stage-note{position:absolute;z-index:2;left:12px;top:12px;padding:5px 9px;background:var(--porcelain);font-size:.75rem;color:var(--muted)}
+.looks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.looks[hidden]{display:none}
+.look{display:flex;align-items:center;justify-content:flex-start;gap:9px;min-width:0;min-height:48px;padding:5px 8px;border:1px solid var(--line);background:transparent;cursor:pointer;text-align:left;font-size:var(--small);font-weight:600;transition:transform var(--quick) var(--ease),background-color var(--quick) var(--ease)}
+.look[aria-pressed="true"]{border-color:var(--plum);background:var(--mist);box-shadow:inset 0 0 0 1px var(--plum)}
+.look img{width:36px;aspect-ratio:1;object-fit:cover}
+.tick{display:none;width:13px;height:13px;margin-left:auto;flex:none;color:var(--plum)}
+.look[aria-pressed="true"] .tick{display:block}
+.band{background:var(--mist)}
+.section{padding-block:var(--section)}
+.detail{align-items:center}
+.detail-photo{grid-column:span 6;overflow:hidden;background:var(--paper)}
+.detail-photo img{width:100%;aspect-ratio:1;object-fit:cover}
+.detail-copy{grid-column:8/-1}
+.detail-copy p,.collection-head p,.faq-intro p,.closing p{max-width:47ch;color:var(--muted);margin-top:18px}
+.steps{list-style:none;padding:0;margin:24px 0 0;counter-reset:step}
+.steps li{display:flex;gap:14px;align-items:baseline;border-top:1px solid var(--line);padding:11px 0;counter-increment:step}
+.steps li::before{content:counter(step) ".";font-size:var(--small);font-weight:700;color:var(--plum)}
+.collection-head{margin-bottom:32px;display:flex;align-items:end;justify-content:space-between;gap:18px}
+.collection-head p{margin:0;max-width:35ch}
+.collection-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gutter)}
+.product-frame{overflow:hidden;background:var(--paper)}
+.product-frame img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform 450ms var(--ease)}
+.collection-grid h3{margin-top:13px;font-size:clamp(1.125rem,2vw,1.5rem)}
+.faq{border-top:1px solid var(--line)}
+.faq-intro{grid-column:span 5}
+.questions{grid-column:7/-1}
+details{border-top:1px solid var(--line)}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px;cursor:pointer;font-weight:650;padding:12px 4px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary svg{width:20px;height:20px;flex:none;transition:transform var(--quick) var(--ease)}
+details[open] summary svg{transform:rotate(45deg)}
+details p{max-width:59ch;padding:0 20px 18px 4px;color:var(--muted)}
+.closing{background:var(--mist);padding:clamp(23px,5vw,68px);display:flex;align-items:center;justify-content:space-between;gap:24px}
+.closing h2{font-size:clamp(1.8rem,3.4vw,3rem)}
+.closing .cta{flex:none}
+footer{padding:32px 0 24px;color:var(--muted);font-size:var(--small)}
+footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px}
+footer a{min-height:44px;display:inline-flex;align-items:center;text-underline-offset:.25em}
+@media(hover:hover){
+ .cta:hover{background:#6a4263;transform:translateY(-2px)}
+ .cta:active{transform:translateY(1px)}
+ .look:hover{background:var(--mist);transform:translateY(-2px)}
+ .product-frame:hover img{transform:scale(1.025)}
+}
+@media(max-width:1023px){
+ :root{--display:clamp(2.55rem,5.4vw,3.5rem)}
+ .hero{min-height:auto;padding-block:40px 52px}
+ .hero-copy{grid-column:span 5}
+ .detail-copy{grid-column:8/-1}
+ .look{gap:6px;padding-inline:6px}
+ .look img{width:27px}
+}
+@media(max-width:767px){
+ :root{--edge:20px;--display:clamp(2.375rem,9vw,3rem);--section:clamp(56px,11vw,72px)}
+ .top{min-height:62px}
+ .brand img{width:98px}
+ .nav{gap:4px 12px}
+ .nav a{font-size:.8125rem}
+ .split{grid-template-columns:1fr;gap:28px}
+ .split>*{grid-column:1/-1}
+ .hero{padding-block:26px 44px;gap:22px}
+ .lead{margin-top:12px}
+ .launch{width:100%;margin-top:17px;padding:12px 14px;gap:8px}
+ .launch .cta,.closing .cta{width:100%}
+ .stage{aspect-ratio:.97}
+ .look{font-size:.75rem}
+ .look img{width:24px}
+ .tick{width:11px}
+ .collection-head{display:block;margin-bottom:22px}
+ .collection-head p{margin-top:14px}
+ .collection-grid{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}
+ .detail-photo{order:1}
+ .closing{display:grid}
+}
+@media(max-width:900px){
+ .look{position:relative;display:grid;justify-items:center;justify-content:stretch;gap:3px;text-align:center}
+ .look .tick{position:absolute;right:5px;top:5px}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body id="top">
+<a class="skip" href="#main">К содержанию</a>
+<header class="top wrap">
+  <a class="brand" href="#top" aria-label="Maero — к началу"><img src="./assets/logo.webp" width="360" height="100" alt="MÆROart"></a>
+  <nav class="nav" aria-label="Разделы страницы"><a href="#collection">Коллекция</a><a href="#faq">Вопросы</a></nav>
+</header>
+<main id="main" tabindex="-1">
+<section class="hero wrap split" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <h1 id="hero-title">Мам, я сегодня сам!</h1>
+    <p class="lead">Детская одежда с куклой и её собственным гардеробом. С ней даже обычные сборы могут стать увлекательной игрой.</p>
+    <div class="launch">
+      <p>Первая партия будет ограниченной</p>
+      <a class="cta" href="https://t.me/maeroart">Следить за запуском <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h13m-5-5 5 5-5 5"/></svg></a>
+    </div>
+  </div>
+  <div class="wardrobe">
+    <figure class="stage" id="fitting">
+      <div class="portrait">
+        <img class="stage-base" src="./assets/hero.webp" width="588" height="735" fetchpriority="high" alt="Розовый свитшот Maero с куклой в сменном наряде">
+        <div class="outfit-window" aria-hidden="true">
+          <img class="outfit-layer is-active" src="./assets/hero.webp" width="588" height="735" alt="">
+          <img class="outfit-layer" src="./assets/look-2.webp" width="588" height="735" alt="">
+          <img class="outfit-layer" src="./assets/look-3.webp" width="588" height="735" alt="">
+        </div>
+      </div>
+      <figcaption class="stage-note">Концепция коллекции</figcaption>
+    </figure>
+    <div class="looks" hidden role="group" aria-label="Выбрать наряд куклы">
+      <button class="look" type="button" data-look="0" aria-controls="fitting" aria-pressed="true"><img src="./assets/thumb-1.webp" width="96" height="96" alt="">Розовый<svg class="tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg></button>
+      <button class="look" type="button" data-look="1" aria-controls="fitting" aria-pressed="false"><img src="./assets/thumb-2.webp" width="96" height="96" alt="">Сиреневый<svg class="tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg></button>
+      <button class="look" type="button" data-look="2" aria-controls="fitting" aria-pressed="false"><img src="./assets/thumb-3.webp" width="96" height="96" alt="">Оливковый<svg class="tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg></button>
+    </div>
+  </div>
+</section>
+<section class="band section" aria-labelledby="play-title">
+  <div class="wrap split detail">
+    <figure class="detail-photo" data-reveal><img src="./assets/detail.webp" width="900" height="900" loading="lazy" decoding="async" alt="Крупный план куклы и одежды из концепции Maero"></figure>
+    <div class="detail-copy">
+      <h2 id="play-title">Сегодня наряжаемся вдвоём</h2>
+      <p>Когда сборы начинаются с «не хочу», можно предложить ребёнку выбрать наряд для куклы. Сменные детали планируем крепить на липучках.</p>
+      <ol class="steps"><li>Выбрать наряд для куклы</li><li>Снять прежний и закрепить новый</li><li>Выбрать свой образ</li></ol>
+    </div>
+  </div>
+</section>
+<section class="section wrap" id="collection" aria-labelledby="collection-title">
+  <div class="collection-head">
+    <h2 id="collection-title">Первая коллекция</h2>
+    <p>Три вида одежды, разные цвета и по три варианта кукол для младшей и старшей групп. Предварительные ростовки — 98–146 см.</p>
+  </div>
+  <div class="collection-grid" data-reveal>
+    <article><div class="product-frame"><img src="./assets/sweatshirt.webp" width="640" height="800" loading="lazy" decoding="async" alt="Визуал свитшотов Maero в разных цветах"></div><h3>Свитшоты</h3></article>
+    <article><div class="product-frame"><img src="./assets/longsleeve.webp" width="640" height="800" loading="lazy" decoding="async" alt="Визуал чёрного лонгслива и цветовых вариантов"></div><h3>Лонгсливы</h3></article>
+    <article><div class="product-frame"><img src="./assets/tshirt.webp" width="640" height="800" loading="lazy" decoding="async" alt="Визуал футболок Maero в разных цветах"></div><h3>Футболки</h3></article>
+  </div>
+</section>
+<section class="faq section wrap split" id="faq" aria-labelledby="faq-title">
+  <div class="faq-intro"><h2 id="faq-title">Вопросы о коллекции</h2><p>Коллекция в разработке. Здесь собрали то, что уже известно о замысле.</p></div>
+  <div class="questions">
+    <details open><summary>Кукла будет мешать под курткой?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></summary><p>По задумке кукла плоская, поэтому вещь удобно надевать под верхнюю одежду.</p></details>
+    <details><summary>Как стирать одежду и наряды?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></summary><p>Планируем ткань с велюр-эффектом и термостойкую печать. Сменные наряды можно снять с липучек и постирать отдельно. Точный режим ухода уточним после разработки.</p></details>
+    <details><summary>Когда и где ждать коллекцию?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></summary><p>Ориентир — после Нового года, в 2027 году. Запуск рассчитан на всю Россию. Новости о первой партии появятся в Telegram.</p></details>
+  </div>
+</section>
+<aside class="closing wrap" aria-labelledby="closing-title">
+  <div><h2 id="closing-title">Первая партия будет ограниченной</h2><p>Подпишитесь на Maero в Telegram, чтобы узнать о запуске.</p></div>
+  <a class="cta" href="https://t.me/maeroart">Следить за запуском <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h13m-5-5 5 5-5 5"/></svg></a>
+</aside>
+</main>
+<footer><div class="wrap"><span>MÆROart</span><a href="#top">К началу страницы</a></div></footer>
+<script>
+const looks = document.querySelector('.looks');
+const choices = [...looks.querySelectorAll('button')];
+const layers = [...document.querySelectorAll('.outfit-layer')];
+const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+const compact = matchMedia('(max-width: 767px)');
+const easing = 'cubic-bezier(.2,.75,.25,1)';
+let selected = 0;
+
+looks.hidden = false;
+looks.addEventListener('click', (event) => {
+  const choice = event.target.closest('button');
+  if (!choice) return;
+  const next = Number(choice.dataset.look);
+  if (next === selected) return;
+  const previous = selected;
+  const startOpacity = layers.map((layer) => getComputedStyle(layer).opacity);
+  selected = next;
+
+  layers.forEach((layer, index) => {
+    layer.getAnimations?.().forEach((animation) => animation.cancel());
+    layer.classList.toggle('is-active', index === next);
+  });
+  choices.forEach((button, index) => button.setAttribute('aria-pressed', String(index === next)));
+
+  if (!reduced.matches && typeof layers[next].animate === 'function') {
+    const distance = compact.matches ? 5 : 10;
+    layers[previous].animate([{ opacity: startOpacity[previous] }, { opacity: 0 }], { duration: 320, easing });
+    layers[next].animate([
+      { opacity: startOpacity[next], transform: 'translateY(' + distance + 'px)' },
+      { opacity: 1, transform: 'translateY(0)' }
+    ], { duration: 320, easing });
+  }
+});
+
+reduced.addEventListener('change', (event) => {
+  if (event.matches) document.getAnimations().forEach((animation) => animation.cancel());
+});
+
+if ('IntersectionObserver' in window && 'animate' in Element.prototype && !reduced.matches) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (!isIntersecting) return;
+      observer.unobserve(target);
+      if (reduced.matches) return;
+      target.animate([{ opacity: .78, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }], {
+        duration: 420, easing
+      });
+    });
+  }, { threshold: .12 });
+  document.querySelectorAll('[data-reveal]').forEach((element) => observer.observe(element));
+}
+</script>
+</body>
+</html>
